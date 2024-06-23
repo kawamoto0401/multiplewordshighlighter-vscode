@@ -1,0 +1,192 @@
+{
+	"name": "multiplewordshighlighter-vscode",
+	"displayName": "MultipleWordsHighlighter_vscode",
+	"description": "Highlight multiple words and display them.",
+	"version": "0.3.1",
+	"publisher": "kawamoto",
+	"icon": "media/Package.ico",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kawamoto0401/multiplewordshighlighter-vscode"
+	},
+	"engines": {
+		"vscode": "^1.90.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:multiplewordshighlighter-vscode.highlighterSetText1",
+		"onCommand:multiplewordshighlighter-vscode.highlighterSetText2",
+		"onCommand:multiplewordshighlighter-vscode.highlighterSetText3",
+		"onCommand:multiplewordshighlighter-vscode.highlighterSetText4",
+		"onCommand:multiplewordshighlighter-vscode.highlighterSetText5"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+
+		"commands": [
+			{
+				"command": "multiplewordshighlighter-vscode.highlighterSetText1",
+				"title": "Set HighlighterText1"
+			},
+			{
+				"command": "multiplewordshighlighter-vscode.highlighterSetText2",
+				"title": "Set HighlighterText2"
+			},
+			{
+				"command": "multiplewordshighlighter-vscode.highlighterSetText3",
+				"title": "Set HighlighterText3"
+			},
+			{
+				"command": "multiplewordshighlighter-vscode.highlighterSetText4",
+				"title": "Set HighlighterText4"
+			},
+			{
+				"command": "multiplewordshighlighter-vscode.highlighterSetText5",
+				"title": "Set HighlighterText5"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"conf.resource.01.backgroundColor": {
+					"type": "string",
+					"default": "#FF000080",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.01.isBorderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.01.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.02.backgroundColor": {
+					"type": "string",
+					"default": "#FFFF0080",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.02.isBorderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.02.borderStyleColor": {
+					"type": "string",
+					"default": "#FF000040",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.03.backgroundColor": {
+					"type": "string",
+					"default": "#00FF0080",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.03.isBorderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.03.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.04.backgroundColor": {
+					"type": "string",
+					"default": "#FF800080",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.04.isBorderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.04.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.05.backgroundColor": {
+					"type": "string",
+					"default": "#7f00FF80",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.05.isBorderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.05.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				}
+			}
+		},
+		"views": {
+			"multiplewordshighlighter-explorer": [
+				{
+					"type": "webview",
+					"id": "multiplewordshighlighter-explorer.webview",
+					"name": ""
+				}
+			]
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "multiplewordshighlighter-explorer",
+					"title": "multiplewordshighlighter Explorer",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
+		"menus": {
+			"view/item/context": []
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.90.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"eslint": "^7.32.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.1",
+		"typescript": "^4.4.3",
+		"@vscode/test-electron": "^1.6.2"
+	}
+}
