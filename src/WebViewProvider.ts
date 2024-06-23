@@ -100,8 +100,7 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
     
       <script>
           function butotnClick(){
-            let reviewTextarea2 = document.getElementById('input8');
-            reviewTextarea2.value = reviewTextarea_1.value;
+            reviewTextarea_8.value = reviewTextarea_1.value;
    
             let check_1 = document.getElementById("checkbox1_1");
             let check_1_1 = false;
@@ -117,26 +116,46 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
               check_1_2 = true;
             }
 
-            var obj  = {
+            let obj  = {
                 "name": reviewTextarea_1.value,
                 "uppercaseLetter": check_1_1,
                 "wordSearch": check_1_2
             }
 
-            var json = JSON.stringify(obj);
+            let json = JSON.stringify(obj);
 
             // 拡張側にイベントを送信します
             vscode.postMessage({ type: "change-event", text: json})
 
-            counter.textContent = count++;
+            reviewTextarea_7.value = "test2";
+            // objbk2.name = reviewTextarea_1.value;
+            // namebk = reviewTextarea_1.value;
+            counter.textContent = count++;         
+
+           
+            updateColorList(count);
 
             // Update the saved state
             vscode.setState({ count });
+           reviewTextarea_7.value = "test3";
           }
 
+          function updateColorList(count) {
+            reviewTextarea_7.value = "test";
+            reviewTextarea_6.value = count;
+          }
+ 
+          // let objbk = {
+          //     "name": "",
+          //     "uppercaseLetter": false,
+          //     "wordSearch": false
+          // }
+
           const vscode = acquireVsCodeApi();
+          // const oldState = vscode.getState() || { name: string };
           const oldState = vscode.getState();
 
+          // let namebk = oldState ? oldState.name: "";
           let count = oldState ? oldState.count : 0;
           let counter = document.getElementById('input6');
           counter.value = count;
@@ -150,6 +169,18 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
 
           let reviewcheckbox1_2 = document.getElementById('checkbox1_1');
           reviewcheckbox1_2.addEventListener('click', butotnClick);
+          
+          
+          let reviewTextarea_2 = document.getElementById('input2');
+          let reviewTextarea_3 = document.getElementById('input3');
+          let reviewTextarea_4 = document.getElementById('input4');
+          let reviewTextarea_5 = document.getElementById('input5');
+          let reviewTextarea_6 = document.getElementById('input6');
+          let reviewTextarea_7 = document.getElementById('input7');
+          let reviewTextarea_8 = document.getElementById('input8');
+
+
+          // updateColorList(count);
 
       </script>
 
