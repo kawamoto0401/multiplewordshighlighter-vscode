@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebView Example</title>
+</head>
+<body>
+
+<div>
+<input type="text" id="input1" name="input1" size="30" />
+<br>
+<label>
+  <input type="checkbox" name="option" id="checkbox1_1">
+  小/大文字
+  <input type="checkbox" name="option" id="checkbox1_2">
+  単語検索
+</label>
+</div>
+
+
+<br>
+
+<input type="text" id="input2" name="input2" size="30" />
+<br>
+
+<input type="text" id="input3" name="input3" size="30" />
+<br>
+
+<input type="text" id="input4" name="input4" size="30" />
+<br>
+
+<input type="text" id="input5" name="input5" size="30" />
+<br>
+
+<input type="text" id="input6" name="input6" size="30" />
+<br>
+
+<input type="text" id="input7" name="input7" size="30" />
+<br>
+
+<input type="text" id="input8" name="input8" size="30" />
+<br>
+
+<script>
+    function butotnClick(){
+      let reviewTextarea2 = document.getElementById('input8');
+      reviewTextarea2.value = reviewTextarea_1.value;
+
+      // 拡張側にイベントを送信します
+      // vscode.postMessage({ type: "any-event", text: "HW"})
+
+      let check_1 = document.getElementById("checkbox1_1");
+      let check_1_1 = false;   
+      if (check_1.checked){    
+        // チェックあり の場合
+        check_1_1 = true;
+
+      }
+
+      let check_2 = document.getElementById("checkbox1_2");
+      let check_1_2 = false;
+      if (check_2.checked){
+        // チェックあり の場合
+        check_1_2 = true;
+      }
+
+      var json = {
+          "name": reviewTextarea_1.value,
+          "uppercaseLetter": check_1_1,
+          "wordSearch": check_1_2
+      }
+
+      let reviewTextarea4= document.getElementById('input6');
+      reviewTextarea4.value = json.name + json.uppercaseLetter + json.wordSearch;
+
+
+      // 拡張側にイベントを送信します
+      vscode.postMessage({ type: "change-event", text: json.name})
+    }
+    
+    let reviewTextarea_1 = document.getElementById('input1');
+    reviewTextarea_1.addEventListener('change', butotnClick);
+
+    const vscode = acquireVsCodeApi();
+
+    let reviewcheckbox1_1 = document.getElementById('checkbox1_1');
+    reviewcheckbox1_1.addEventListener('click', butotnClick);
+
+    let reviewcheckbox1_2 = document.getElementById('checkbox1_1');
+    reviewcheckbox1_2.addEventListener('click', butotnClick);
+
+</script>
+
+</body>
+
+</html>
