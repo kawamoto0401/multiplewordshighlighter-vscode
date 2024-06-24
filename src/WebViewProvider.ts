@@ -12,6 +12,14 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
 
     // 永続化した値を取得する
     const state = context.state;
+    if( typeof state === 'string') {
+      try {
+        var json = JSON.parse(state);
+        console.log("context.state" + json.name + " " + json.uppercaseLetter + " " + json.wordSearch); 
+      } catch (e) {
+        console.error(e); // SyntaxError: Unexpected token in JSON string
+      }
+    }
 
     // 特に設定するべきオプションは必要ありませんが、
     // オブジェクトは代入する必要があります
@@ -34,7 +42,7 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
       switch (data.type) {
         case "change-event":
           var json = JSON.parse( data.text );
-          console.log(json.name + json.uppercaseLetter + json.wordSearch);
+          console.log("change-event" + json.name + " " + json.uppercaseLetter + " " + json.wordSearch); 
           break;
 
         case "any-event":
@@ -128,37 +136,31 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
             vscode.postMessage({ type: "change-event", text: json})
 
             reviewTextarea_7.value = "test2";
-            // objbk2.name = reviewTextarea_1.value;
-            // namebk = reviewTextarea_1.value;
-            counter.textContent = count++;         
 
-           
-            updateColorList(count);
+            updateColorList(reviewTextarea_1.value);
 
             // Update the saved state
-            vscode.setState({ count });
-           reviewTextarea_7.value = "test3";
+            vscode.setState(json);
+            reviewTextarea_7.value = "test3";
           }
 
-          function updateColorList(count) {
+          function updateColorList(name) {
             reviewTextarea_7.value = "test";
-            reviewTextarea_6.value = count;
+            reviewTextarea_1.value = name;
           }
- 
-          // let objbk = {
-          //     "name": "",
-          //     "uppercaseLetter": false,
-          //     "wordSearch": false
-          // }
 
           const vscode = acquireVsCodeApi();
-          // const oldState = vscode.getState() || { name: string };
-          const oldState = vscode.getState();
+          const oldState = vscode.getState() || { "name" : "", "uppercaseLetter": false, "wordSearch": false };
 
-          // let namebk = oldState ? oldState.name: "";
-          let count = oldState ? oldState.count : 0;
-          let counter = document.getElementById('input6');
-          counter.value = count;
+          let name = "";
+          if( typeof oldState == 'string') {
+            try {
+              var json = JSON.parse(oldState);
+              name = json.name;
+            } catch (e) {
+            }          
+          } 
+
 
           let reviewTextarea_1 = document.getElementById('input1');
           reviewTextarea_1.addEventListener('change', butotnClick);
@@ -180,7 +182,7 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           let reviewTextarea_8 = document.getElementById('input8');
 
 
-          // updateColorList(count);
+          updateColorList(name);
 
       </script>
 
