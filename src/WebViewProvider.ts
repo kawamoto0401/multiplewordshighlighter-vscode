@@ -59,7 +59,13 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
 
 
 
-  public getWebviewContent(webview: vscode.Webview) {
+  private getWebviewContent(webview: vscode.Webview) {
+		// Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
+		const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, 'media', 'main.js'));
+
+		// Use a nonce to only allow a specific script to be run.
+		const nonce = getNonce();
+
     return `
       <!DOCTYPE html>
       <html lang="ja">
@@ -71,41 +77,105 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
       <body>
 
       <div>
-      <input type="text" id="input1" name="input1" size="30" />
-      <br>
-      <label>
-        <input type="checkbox" name="option" id="checkbox1_1">
-        小/大文字
-        <input type="checkbox" name="option" id="checkbox1_2">
-        単語検索
-      </label>
+        <input type="text" id="input1" name="input1" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox1_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox1_2">
+          単語検索
+        </label>
       </div>
 
+      <div>
+        <input type="text" id="input2" name="input2" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox2_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox2_2">
+          単語検索
+        </label>
+      </div>
 
-      <br>
+      <div>
+        <input type="text" id="input3" name="input3" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox3_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox3_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input2" name="input2" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input4" name="input4" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox4_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox4_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input3" name="input3" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input5" name="input5" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox5_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox5_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input4" name="input4" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input6" name="input6" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox6_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox6_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input5" name="input5" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input7" name="input7" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox7_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox7_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input6" name="input6" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input8" name="input8" size="30" />
+        <br>
+        <label>
+          <input type="checkbox" name="option" id="checkbox8_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox8_2">
+          単語検索
+        </label>
+      </div>
 
-      <input type="text" id="input7" name="input7" size="30" />
-      <br>
-
-      <input type="text" id="input8" name="input8" size="30" />
-      <br>
+      <div>
+        <input type="text" id="input9" name="input9" size="30" />
+        <br> 
+        <label>
+          <input type="checkbox" name="option" id="checkbox9_1">
+          小/大文字
+          <input type="checkbox" name="option" id="checkbox9_2">
+          単語検索
+        </label>
+      </div>
       
-    
+         
       <script>
           function butotnClick(){
             reviewTextarea_8.value = reviewTextarea_1.value;
@@ -180,6 +250,7 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           let reviewTextarea_6 = document.getElementById('input6');
           let reviewTextarea_7 = document.getElementById('input7');
           let reviewTextarea_8 = document.getElementById('input8');
+          let reviewTextarea_9 = document.getElementById('input9');
 
 
           updateColorList(name);
@@ -217,5 +288,13 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
   }
 }
 
+function getNonce() {
+	let text = '';
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (let i = 0; i < 32; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
+}
 
 
