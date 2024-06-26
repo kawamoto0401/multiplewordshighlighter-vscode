@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,87 +9,215 @@
 <body>
 
 <div>
-<input type="text" id="input1" name="input1" size="30" />
-<br>
-<label>
-  <input type="checkbox" name="option" id="checkbox1_1">
-  小/大文字
-  <input type="checkbox" name="option" id="checkbox1_2">
-  単語検索
-</label>
+  <input type="text" id="input1" name="input1" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox1_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox1_2">
+    単語検索
+  </label>
 </div>
 
+<div>
+  <input type="text" id="input2" name="input2" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox2_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox2_2">
+    単語検索
+  </label>
+</div>
 
-<br>
+<div>
+  <input type="text" id="input3" name="input3" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox3_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox3_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input2" name="input2" size="30" />
-<br>
+<div>
+  <input type="text" id="input4" name="input4" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox4_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox4_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input3" name="input3" size="30" />
-<br>
+<div>
+  <input type="text" id="input5" name="input5" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox5_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox5_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input4" name="input4" size="30" />
-<br>
+<div>
+  <input type="text" id="input6" name="input6" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox6_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox6_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input5" name="input5" size="30" />
-<br>
+<div>
+  <input type="text" id="input7" name="input7" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox7_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox7_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input6" name="input6" size="30" />
-<br>
+<div>
+  <input type="text" id="input8" name="input8" size="30" />
+  <br>
+  <label>
+    <input type="checkbox" name="option" id="checkbox8_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox8_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input7" name="input7" size="30" />
-<br>
+<div>
+  <input type="text" id="input9" name="input9" size="30" />
+  <br> 
+  <label>
+    <input type="checkbox" name="option" id="checkbox9_1">
+    小/大文字
+    <input type="checkbox" name="option" id="checkbox9_2">
+    単語検索
+  </label>
+</div>
 
-<input type="text" id="input8" name="input8" size="30" />
-<br>
-
+   
 <script>
     function butotnClick(){
-      let reviewTextarea2 = document.getElementById('input8');
-      reviewTextarea2.value = reviewTextarea_1.value;
+      reviewTextarea_8.value = reviewTextarea_1.value;
 
-      // 拡張側にイベントを送信します
-      // vscode.postMessage({ type: "any-event", text: "HW"})
-
-      let check_1 = document.getElementById("checkbox1_1");
-      let check_1_1 = false;   
-      if (check_1.checked){    
+      let check_1_1 = false;
+      if (document.getElementById("checkbox1_1").checked){
         // チェックあり の場合
         check_1_1 = true;
-
       }
 
-      let check_2 = document.getElementById("checkbox1_2");
       let check_1_2 = false;
-      if (check_2.checked){
+      if (document.getElementById("checkbox1_2").checked){
         // チェックあり の場合
         check_1_2 = true;
       }
 
-      var json = {
-          "name": reviewTextarea_1.value,
-          "uppercaseLetter": check_1_1,
-          "wordSearch": check_1_2
+      let check_2_1 = false;
+      if (document.getElementById("checkbox2_1").checked){
+        // チェックあり の場合
+        check_2_1 = true;
       }
 
-      let reviewTextarea4= document.getElementById('input6');
-      reviewTextarea4.value = json.name + json.uppercaseLetter + json.wordSearch;
+      let check_2_2 = false;
+      if (document.getElementById("checkbox2_2").checked){
+        // チェックあり の場合
+        check_2_2 = true;
+      }
 
+      const obj = {
+        "searchData": [
+          {
+            "name": reviewTextarea_1.value,
+            "uppercaseLetter": check_1_1,
+            "wordSearch": check_1_1
+          },
+          {
+            "name": reviewTextarea_2.value,
+            "uppercaseLetter": check_2_1,
+            "wordSearch": check_2_2
+          },
+        ]
+      };
+
+      let json = JSON.stringify(obj);
 
       // 拡張側にイベントを送信します
-      vscode.postMessage({ type: "change-event", text: json.name})
+      vscode.postMessage({ type: "change-event", text: json})
+
+      reviewTextarea_7.value = "test2";
+
+      updateColorList(reviewTextarea_1.value);
+
+      // Update the saved state
+      vscode.setState(json);
+      reviewTextarea_7.value = "test3";
     }
-    
-    let reviewTextarea_1 = document.getElementById('input1');
-    reviewTextarea_1.addEventListener('change', butotnClick);
+
+    function updateColorList(name) {
+      reviewTextarea_7.value = "test";
+      reviewTextarea_1.value = name;
+    }
 
     const vscode = acquireVsCodeApi();
+    const oldState = vscode.getState() || {
+                                            "searchData": [
+                                              {
+                                                "name": "",
+                                                "uppercaseLetter": false,
+                                                "wordSearch": false
+                                              },
+                                              {
+                                                "name": "",
+                                                "uppercaseLetter": false,
+                                                "wordSearch": false
+                                              },
+                                            ]
+                                          };
+    let name = "";
+    if( typeof oldState == 'string') {
+      try {
+        var json = JSON.parse(oldState);
+        name = json.serchInfo[0].name;
+      } catch (e) {
+      }          
+    } 
+
+
+    let reviewTextarea_1 = document.getElementById('input1');
+    reviewTextarea_1.addEventListener('change', butotnClick);
+    reviewTextarea_1s.value = "test3";
+
 
     let reviewcheckbox1_1 = document.getElementById('checkbox1_1');
     reviewcheckbox1_1.addEventListener('click', butotnClick);
 
     let reviewcheckbox1_2 = document.getElementById('checkbox1_1');
     reviewcheckbox1_2.addEventListener('click', butotnClick);
+    
+    
+    let reviewTextarea_2 = document.getElementById('input2');
+    let reviewTextarea_3 = document.getElementById('input3');
+    let reviewTextarea_4 = document.getElementById('input4');
+    let reviewTextarea_5 = document.getElementById('input5');
+    let reviewTextarea_6 = document.getElementById('input6');
+    let reviewTextarea_7 = document.getElementById('input7');
+    let reviewTextarea_8 = document.getElementById('input8');
+    let reviewTextarea_9 = document.getElementById('input9');
+
+
+    updateColorList(name);
 
 </script>
 

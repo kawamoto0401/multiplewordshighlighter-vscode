@@ -23,13 +23,96 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// WebView を登録
 	const webViewProvider = new WebViewProvider(context.extensionUri);
-
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider( "example.webview", webViewProvider )	
 	);
 
+	// onDisChangeCongiratoion
 
 	context.subscriptions.push(disposable);
+
+
+
+	const configuration = vscode.workspace.getConfiguration();
+	const color = configuration.get('conf.resource.01.backgroundColor', '');
+
+
+	let timeout: NodeJS.Timer | undefined = undefined;
+
+	// create a decorator type that we use to decorate small numbers
+	const decorationType01 = vscode.window.createTextEditorDecorationType({
+		backgroundColor: { id: "#FF000055"}
+	});
+
+	// create a decorator type that we use to decorate large numbers
+	const decorationType02 = vscode.window.createTextEditorDecorationType({
+		backgroundColor: color,
+	});
+
+	let activeEditor = vscode.window.activeTextEditor;
+
+	function updateDecorations() {
+		if (!activeEditor) {
+			return;
+		}
+		let regEx = /\d+/g;
+		const text = activeEditor.document.getText();
+		const smallNumbers: vscode.DecorationOptions[] = [];
+		const numbers1: vscode.DecorationOptions[] = [];
+		let match;
+		while ((match = regEx.exec(text))) {
+			const startPos = activeEditor.document.positionAt(match.index);
+			const endPos = activeEditor.document.positionAt(match.index + match[0].length);
+			const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: 'Number **' + match[0] + '**' };
+			if (match[0].length < 3) {
+				smallNumbers.push(decoration);
+			}
+		}
+
+		regEx = /TODO/g;
+		while ((match = regEx.exec(text))) {
+			const startPos = activeEditor.document.positionAt(match.index);
+			const endPos = activeEditor.document.positionAt(match.index + match[0].length);
+			const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: 'Number **' + match[0] + '**' };
+			if (match[0].length < 3) {
+				numbers1.push(decoration);
+			}
+		}
+
+		activeEditor.setDecorations(decorationType01, smallNumbers);
+		activeEditor.setDecorations(decorationType02, numbers1);
+	}
+
+	function triggerUpdateDecorations(throttle = false) {
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = undefined;
+		}
+		if (throttle) {
+			timeout = setTimeout(updateDecorations, 100);
+		} else {
+			updateDecorations();
+		}
+	}
+
+	if (activeEditor) {
+		triggerUpdateDecorations();
+	}
+
+	vscode.window.onDidChangeActiveTextEditor(editor => {
+		activeEditor = editor;
+		if (editor) {
+			triggerUpdateDecorations();
+		}
+	}, null, context.subscriptions);
+
+	vscode.workspace.onDidChangeTextDocument(event => {
+		if (activeEditor && event.document === activeEditor.document) {
+			triggerUpdateDecorations(true);
+		}
+	}, null, context.subscriptions);
+
+	
 }
 
 // this method is called when your extension is deactivated

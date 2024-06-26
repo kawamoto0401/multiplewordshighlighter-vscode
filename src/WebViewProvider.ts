@@ -15,11 +15,39 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
     if( typeof state === 'string') {
       try {
         var json = JSON.parse(state);
-        console.log("context.state" + json.name + " " + json.uppercaseLetter + " " + json.wordSearch); 
+        for (let index = 0; index < json.searchData.length; index++) {
+          const element = json.searchData[index];
+          console.log("context.state : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
+        }    
       } catch (e) {
         console.error(e); // SyntaxError: Unexpected token in JSON string
       }
     }
+
+    // {
+    //   const obj = {
+    //     "searchData": [
+    //       {
+    //         "name": "",
+    //         "uppercaseLetter": false,
+    //         "wordSearch": false
+    //       },
+    //       {
+    //         "name": "",
+    //         "uppercaseLetter": false,
+    //         "wordSearch": false
+    //       },
+    //     ]
+    //   };
+  
+    //   var json2 = JSON.stringify(obj);
+    //   var json3 = JSON.parse(json2);
+    //   for (let index = 0; index < json3.searchData.length; index++) {
+    //     const element = json3.searchData[index];
+    //     console.log("test : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
+    //   }
+
+    // }
 
     // 特に設定するべきオプションは必要ありませんが、
     // オブジェクトは代入する必要があります
@@ -41,8 +69,16 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
         case "change-event":
-          var json = JSON.parse( data.text );
-          console.log("change-event" + json.name + " " + json.uppercaseLetter + " " + json.wordSearch); 
+          try {
+            var json = JSON.parse(data.text);
+            for (let index = 0; index < json.searchData.length; index++) {
+              const element = json.searchData[index];
+              console.log("change-event : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
+            }      
+          } catch (e) {
+            console.error(e); // SyntaxError: Unexpected token in JSON string
+          }
+
           break;
 
         case "any-event":
@@ -175,66 +211,102 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
         </label>
       </div>
       
-         
+      <div>
+        <input type="text" id="input_debug" name="input_debug" size="30" />
+      </div>
+
       <script>
           function butotnClick(){
-            reviewTextarea_8.value = reviewTextarea_1.value;
+            reviewTextarea_1.value = "butotnClick_01";
    
-            let check_1 = document.getElementById("checkbox1_1");
             let check_1_1 = false;
-            if (check_1.checked){
+            if (document.getElementById('checkbox1_1').checked){
               // チェックあり の場合
               check_1_1 = true;
             }
 
-            let check_2 = document.getElementById("checkbox1_2");
             let check_1_2 = false;
-            if (check_2.checked){
+            if (document.getElementById('checkbox1_2').checked){
               // チェックあり の場合
               check_1_2 = true;
             }
 
-            let obj  = {
-                "name": reviewTextarea_1.value,
-                "uppercaseLetter": check_1_1,
-                "wordSearch": check_1_2
+            let check_2_1 = false;
+            if (document.getElementById('checkbox2_1').checked){
+              // チェックあり の場合
+              check_2_1 = true;
             }
+
+            let check_2_2 = false;
+            if (document.getElementById('checkbox2_2').checked){
+              // チェックあり の場合
+              check_2_2 = true;
+            }
+      
+            const obj = {
+              "searchData": [
+                {
+                  "name": reviewTextarea_1.value,
+                  "uppercaseLetter": check_1_1,
+                  "wordSearch": check_1_1
+                },
+                {
+                  "name": reviewTextarea_2.value,
+                  "uppercaseLetter": check_2_1,
+                  "wordSearch": check_2_2
+                },
+              ]
+            };
 
             let json = JSON.stringify(obj);
 
             // 拡張側にイベントを送信します
             vscode.postMessage({ type: "change-event", text: json})
 
-            reviewTextarea_7.value = "test2";
+            reviewTextarea_1.value = "butotnClick_02";
 
             updateColorList(reviewTextarea_1.value);
 
             // Update the saved state
             vscode.setState(json);
-            reviewTextarea_7.value = "test3";
+
+            reviewTextarea_1.value = "butotnClick end";
           }
 
-          function updateColorList(name) {
+          function updateColorList(obj) {
             reviewTextarea_7.value = "test";
             reviewTextarea_1.value = name;
           }
 
           const vscode = acquireVsCodeApi();
-          const oldState = vscode.getState() || { "name" : "", "uppercaseLetter": false, "wordSearch": false };
-
+          const oldState = vscode.getState() || {
+                                                  "searchData": [
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                  ]
+                                                };
           let name = "";
           if( typeof oldState == 'string') {
             try {
               var json = JSON.parse(oldState);
-              name = json.name;
+              name = json.searchData[0].name;
             } catch (e) {
             }          
           } 
 
+          let reviewTextarea_debug = document.getElementById('input_debug');
+          reviewTextarea_1.value = "Start";
 
           let reviewTextarea_1 = document.getElementById('input1');
           reviewTextarea_1.addEventListener('change', butotnClick);
-
 
           let reviewcheckbox1_1 = document.getElementById('checkbox1_1');
           reviewcheckbox1_1.addEventListener('click', butotnClick);
@@ -251,9 +323,10 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           let reviewTextarea_7 = document.getElementById('input7');
           let reviewTextarea_8 = document.getElementById('input8');
           let reviewTextarea_9 = document.getElementById('input9');
-
+         
 
           updateColorList(name);
+
 
       </script>
 

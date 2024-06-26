@@ -20,9 +20,50 @@
 				"title": "Hello World"
 			}
 		],
-
+		"configuration": {
+			"properties": {
+				"conf.resource.01.backgroundColor": {
+				  "type": "string",
+				  "default": "#FF000055",
+				  "description": "背景色",
+				  "pattern": "#[0-9a-fA-F]{8}",
+				  "maxLength": 9
+				},
+				"conf.resource.01.borderStyleSolid": {
+					"type": "boolean",
+					"default": true,
+					"description": "枠色の有無"
+				},
+				"conf.resource.01.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.02.backgroundColor": {
+					"type": "string",
+					"default": "#FFC7CEFF",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.02.borderStyleSolid": {
+					"type": "boolean",
+					"default": true,
+					"description": "枠色の有無"
+				},
+				"conf.resource.02.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				}
+			}
+		},
 		"views": {
-			"ImportErrorList-explorer": [
+			"multiplewordshighlighter-explorer": [
 				{
 					"type": "webview",
 					"id": "example.webview",
@@ -33,8 +74,8 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "ImportErrorList-explorer",
-					"title": "ImportErrorList Explorer",
+					"id": "multiplewordshighlighter-explorer",
+					"title": "multiplewordshighlighter Explorer",
 					"icon": "media/dep.svg"
 				}
 			]
