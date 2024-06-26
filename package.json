@@ -31,7 +31,7 @@
 				},
 				"conf.resource.01.borderStyleSolid": {
 					"type": "boolean",
-					"default": true,
+					"default": false,
 					"description": "枠色の有無"
 				},
 				"conf.resource.01.borderStyleColor": {
@@ -41,6 +41,7 @@
 					"pattern": "#[0-9a-fA-F]{8}",
 					"maxLength": 9
 				},
+
 				"conf.resource.02.backgroundColor": {
 					"type": "string",
 					"default": "#FFC7CEFF",
@@ -50,7 +51,7 @@
 				},
 				"conf.resource.02.borderStyleSolid": {
 					"type": "boolean",
-					"default": true,
+					"default": false,
 					"description": "枠色の有無"
 				},
 				"conf.resource.02.borderStyleColor": {
@@ -59,7 +60,48 @@
 					"description": "枠色",
 					"pattern": "#[0-9a-fA-F]{8}",
 					"maxLength": 9
+				},
+
+				"conf.resource.03.backgroundColor": {
+					"type": "string",
+					"default": "#FFC7CEFF",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.03.borderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.03.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				
+				"conf.resource.04.backgroundColor": {
+					"type": "string",
+					"default": "#FFC7CEFF",
+					"description": "背景色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
+				},
+				"conf.resource.04.borderStyleSolid": {
+					"type": "boolean",
+					"default": false,
+					"description": "枠色の有無"
+				},
+				"conf.resource.04.borderStyleColor": {
+					"type": "string",
+					"default": "#FF0000FF",
+					"description": "枠色",
+					"pattern": "#[0-9a-fA-F]{8}",
+					"maxLength": 9
 				}
+
 			}
 		},
 		"views": {
@@ -77,6 +119,14 @@
 					"id": "multiplewordshighlighter-explorer",
 					"title": "multiplewordshighlighter Explorer",
 					"icon": "media/dep.svg"
+				}
+			]
+		},
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "vsc-labeled-bookmarks.activateTreeItem",
+					"group": "inline"
 				}
 			]
 		}

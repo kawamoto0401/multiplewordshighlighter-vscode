@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider( "example.webview", webViewProvider )	
 	);
 
-	// onDisChangeCongiratoion
+	vscode.workspace.onDidChangeConfiguration(async(event) => await onConfigurationChanged(event))
 
 	context.subscriptions.push(disposable);
 
@@ -113,6 +113,11 @@ export function activate(context: vscode.ExtensionContext) {
 	}, null, context.subscriptions);
 
 	
+	// 設定変更時のイベントハンドラ
+	function onConfigurationChanged(e: vscode.ConfigurationChangeEvent) {
+		// 排他して、createTextEditorDecorationTypeを更新する
+
+	}
 }
 
 // this method is called when your extension is deactivated

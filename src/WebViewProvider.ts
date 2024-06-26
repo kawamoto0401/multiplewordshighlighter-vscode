@@ -200,24 +200,15 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
         </label>
       </div>
 
-      <div>
-        <input type="text" id="input9" name="input9" size="30" />
-        <br> 
-        <label>
-          <input type="checkbox" name="option" id="checkbox9_1">
-          小/大文字
-          <input type="checkbox" name="option" id="checkbox9_2">
-          単語検索
-        </label>
-      </div>
-      
+      <br>    
+
       <div>
         <input type="text" id="input_debug" name="input_debug" size="30" />
       </div>
 
       <script>
           function butotnClick(){
-            reviewTextarea_1.value = "butotnClick_01";
+            reviewTextarea_debug.value = "butotnClick_01";
    
             let check_1_1 = false;
             if (document.getElementById('checkbox1_1').checked){
@@ -263,19 +254,19 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
             // 拡張側にイベントを送信します
             vscode.postMessage({ type: "change-event", text: json})
 
-            reviewTextarea_1.value = "butotnClick_02";
+            reviewTextarea_debug.value = "butotnClick_02";
 
-            updateColorList(reviewTextarea_1.value);
+            updateColorList(obj);
 
             // Update the saved state
             vscode.setState(json);
 
-            reviewTextarea_1.value = "butotnClick end";
+            reviewTextarea_debug.value = "butotnClick end";
           }
 
           function updateColorList(obj) {
-            reviewTextarea_7.value = "test";
-            reviewTextarea_1.value = name;
+            reviewTextarea_1.value = obj.searchData[0].name;
+            reviewTextarea_2.value = obj.searchData[1].name;
           }
 
           const vscode = acquireVsCodeApi();
@@ -291,19 +282,49 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
                                                       "uppercaseLetter": false,
                                                       "wordSearch": false
                                                     },
-                                                  ]
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    {
+                                                      "name": "",
+                                                      "uppercaseLetter": false,
+                                                      "wordSearch": false
+                                                    },
+                                                    ]
                                                 };
-          let name = "";
+          let json;
           if( typeof oldState == 'string') {
             try {
-              var json = JSON.parse(oldState);
-              name = json.searchData[0].name;
+              json = JSON.parse(oldState);
+              
             } catch (e) {
             }          
           } 
 
           let reviewTextarea_debug = document.getElementById('input_debug');
-          reviewTextarea_1.value = "Start";
+          reviewTextarea_debug.value = "Start";
 
           let reviewTextarea_1 = document.getElementById('input1');
           reviewTextarea_1.addEventListener('change', butotnClick);
@@ -316,17 +337,30 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           
           
           let reviewTextarea_2 = document.getElementById('input2');
+          reviewTextarea_2.addEventListener('change', butotnClick);
+
           let reviewTextarea_3 = document.getElementById('input3');
+          reviewTextarea_3.addEventListener('change', butotnClick);
+
           let reviewTextarea_4 = document.getElementById('input4');
+          reviewTextarea_4.addEventListener('change', butotnClick);
+
           let reviewTextarea_5 = document.getElementById('input5');
+          reviewTextarea_5.addEventListener('change', butotnClick);
+
           let reviewTextarea_6 = document.getElementById('input6');
+          reviewTextarea_6.addEventListener('change', butotnClick);
+
           let reviewTextarea_7 = document.getElementById('input7');
+          reviewTextarea_7.addEventListener('change', butotnClick);
+
           let reviewTextarea_8 = document.getElementById('input8');
-          let reviewTextarea_9 = document.getElementById('input9');
+          reviewTextarea_8.addEventListener('change', butotnClick);
          
 
-          updateColorList(name);
+          updateColorList(json);
 
+          reviewTextarea_debug.value = "Start end";
 
       </script>
 
@@ -336,20 +370,6 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
     `;
   }
 
-  public chgComment(description: string, commnent: string) {
-
-    if (this.view) {
-
-      // XSS対策で、HTML特殊文字をエスケープさせて対策
-      const descriptionTmp = this.escapeHTML(description);
-      const commnentTmp = this.escapeHTML(commnent);
-
-      // 改行コードを判定し、HTMLの<BR>に変換する
-      const commnentTmp2 = commnentTmp.replace(/\r?\n/g, '<br>');
-
-      // this.view.webview.html = this.getWebviewContent(descriptionTmp, commnentTmp2);
-    }
-  }
 
   // HTML特殊文字をエスケープさせて対策
   public escapeHTML(str: string) {
