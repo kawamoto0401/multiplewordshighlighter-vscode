@@ -24,30 +24,33 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
       }
     }
 
-    // {
-    //   const obj = {
-    //     "searchData": [
-    //       {
-    //         "name": "",
-    //         "uppercaseLetter": false,
-    //         "wordSearch": false
-    //       },
-    //       {
-    //         "name": "",
-    //         "uppercaseLetter": false,
-    //         "wordSearch": false
-    //       },
-    //     ]
-    //   };
+    {
+      const obj = {
+        "searchData": [
+          {
+            "name": "",
+            "uppercaseLetter": false,
+            "wordSearch": false
+          },
+          {
+            "name": "",
+            "uppercaseLetter": false,
+            "wordSearch": false
+          },
+        ]
+      };
   
-    //   var json2 = JSON.stringify(obj);
-    //   var json3 = JSON.parse(json2);
-    //   for (let index = 0; index < json3.searchData.length; index++) {
-    //     const element = json3.searchData[index];
-    //     console.log("test : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
-    //   }
+      var json2 = JSON.stringify(obj);
+      var json3 = JSON.parse(json2);
+      for (let index = 0; index < json3.searchData.length; index++) {
+        const element = json3.searchData[index];
+        console.log("test : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
+      }
 
-    // }
+      const array2: string[] = new Array(5);
+      array2[0] = "";
+      array2[1] = "";     
+    }
 
     // 特に設定するべきオプションは必要ありませんが、
     // オブジェクトは代入する必要があります
@@ -326,6 +329,8 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           let reviewTextarea_debug = document.getElementById('input_debug');
           reviewTextarea_debug.value = "Start";
 
+          const HTMLElements = [8];
+ 
           let reviewTextarea_1 = document.getElementById('input1');
           reviewTextarea_1.addEventListener('change', butotnClick);
 
@@ -354,8 +359,8 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
           let reviewTextarea_7 = document.getElementById('input7');
           reviewTextarea_7.addEventListener('change', butotnClick);
 
-          let reviewTextarea_8 = document.getElementById('input8');
-          reviewTextarea_8.addEventListener('change', butotnClick);
+          HTMLElements[7] = document.getElementById('input8');
+          HTMLElements[7].addEventListener('change', butotnClick);
          
 
           updateColorList(json);

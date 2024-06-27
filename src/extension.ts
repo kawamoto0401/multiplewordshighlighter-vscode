@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider( "example.webview", webViewProvider )	
 	);
 
-	vscode.workspace.onDidChangeConfiguration(async(event) => await onConfigurationChanged(event))
+	vscode.workspace.onDidChangeConfiguration(async(event) => await onConfigurationChanged(event));
 
 	context.subscriptions.push(disposable);
 
