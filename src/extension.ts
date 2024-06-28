@@ -99,6 +99,7 @@ export function activate(context: vscode.ExtensionContext) {
 		triggerUpdateDecorations();
 	}
 
+	// アクティブなエディタが変更されたときに発生するイベントです。このイベントは、アクティブなエディタが変更されたときにも発生することに注意してください
 	vscode.window.onDidChangeActiveTextEditor(editor => {
 		activeEditor = editor;
 		if (editor) {
@@ -106,6 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}, null, context.subscriptions);
 
+	// テキスト ドキュメントが変更されたときに発生するイベント。これは通常、発生します 内容が変わったときだけでなく、ダーティ状態など他のものも変わったとき。
 	vscode.workspace.onDidChangeTextDocument(event => {
 		if (activeEditor && event.document === activeEditor.document) {
 			triggerUpdateDecorations(true);
