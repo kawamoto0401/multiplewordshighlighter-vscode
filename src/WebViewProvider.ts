@@ -1,4 +1,6 @@
+import { userInfo } from "os";
 import * as vscode from "vscode";
+import { UserSetting } from "./UserSetting";
 
 export class WebViewProvider implements vscode.WebviewViewProvider {
 
@@ -18,7 +20,7 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
         for (let index = 0; index < json.searchData.length; index++) {
           const element = json.searchData[index];
           console.log("context.state : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
-        }    
+        } 
       } catch (e) {
         console.error(e); // SyntaxError: Unexpected token in JSON string
       }
@@ -77,8 +79,12 @@ export class WebViewProvider implements vscode.WebviewViewProvider {
             for (let index = 0; index < json.searchData.length; index++) {
               const element = json.searchData[index];
               console.log("change-event : " + element.name + " " + element.uppercaseLetter + " " + element.wordSearch);       
-            }      
-          } catch (e) {
+            }
+      
+            let userSetting = UserSetting.getInstance();
+            userSetting.setSearchData(json);  
+
+         } catch (e) {
             console.error(e); // SyntaxError: Unexpected token in JSON string
           }
 
