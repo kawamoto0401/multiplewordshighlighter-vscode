@@ -39,7 +39,7 @@ export class UserSetting {
     private decorationTypeList : vscode.TextEditorDecorationType[] = [];
     private activeEditor : vscode.TextEditor | undefined;
     private timeout : NodeJS.Timer | undefined = undefined;
-    private json : JSON | undefined;
+    private json : any | undefined;
 
 
     public init() {
@@ -55,36 +55,44 @@ export class UserSetting {
             return;
         }
 
-        let regEx = /\d+/g;
-        const text = this.activeEditor.document.getText();
-        const smallNumbers: vscode.DecorationOptions[] = [];
-        const decorationOptionsList: vscode.DecorationOptions[] = [];
-        let match;
-        while ((match = regEx.exec(text))) {
-            const startPos = this.activeEditor.document.positionAt(match.index);
-            const endPos = this.activeEditor.document.positionAt(match.index + match[0].length);
-            const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: 'Number **' + match[0] + '**' };
-            
-            decorationOptionsList.push(decoration);
+        if (!this.json) {
+            return;
         }
 
-        regEx = /TODO/g;
-        while ((match = regEx.exec(text))) {
-            const startPos = this.activeEditor.document.positionAt(match.index);
-            const endPos = this.activeEditor.document.positionAt(match.index + match[0].length);
-            const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: 'Number **' + match[0] + '**' };
+        const text = this.activeEditor.document.getText();
+        const textToUpperCase = this.activeEditor.document.getText().toUpperCase();
 
-            decorationOptionsList.push(decoration);
+        const decorationOptionsList: vscode.DecorationOptions[][] = [];
+
+        for (let index = 0; index < this.json.searchData.length; index++) {
+            const element = this.json.searchData[index];
+
+            if( 0 === element.name.length) {
+                continue;
+            }
+
+            let regEx : RegExp = new RegExp(element.name, "g");
+            let match;
+            while ((match = regEx.exec(text))) {
+                const startPos = this.activeEditor.document.positionAt(match.index);
+                const endPos = this.activeEditor.document.positionAt(match.index + match[0].length);
+                const decoration = { range: new vscode.Range(startPos, endPos)};
+                // const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: 'Number **' + match[0] + '**' };
+                
+                const decorationOptions: vscode.DecorationOptions[] = [];
+                decorationOptions.push(decoration);
+                decorationOptionsList.push(decorationOptions);
+            }                
         }
 
         const mutex = new Mutex();
         const release = await mutex.acquire();
         try {
             // 排他処理
-   
-            this.activeEditor.setDecorations(this.decorationTypeList[0], smallNumbers);
-            this.activeEditor.setDecorations(this.decorationTypeList[1], numbers1);
-        } finally {
+            for (let index = 0; index < this.decorationTypeList.length && index < decorationOptionsList.length ; index++) {
+                this.activeEditor.setDecorations(this.decorationTypeList[index], decorationOptionsList[index]);        
+            }   
+       } finally {
             // release を呼び出さないとデットロックになる
             release();
         }
@@ -121,14 +129,14 @@ export class UserSetting {
     private setDecorationTypeList() {
         const configuration = vscode.workspace.getConfiguration();
 
-        // create a decorator type that we use to decorate small numbers
-        this.decorationTypeList.push(vscode.window.createTextEditorDecorationType({
-            backgroundColor: { id: "#FF000055" }
-        }));
-
         const color = configuration.get('conf.resource.01.backgroundColor', '');
         this.decorationTypeList.push(vscode.window.createTextEditorDecorationType({
             backgroundColor: color,
+        }));
+
+        const color2 = configuration.get('conf.resource.02.backgroundColor', '');
+        this.decorationTypeList.push(vscode.window.createTextEditorDecorationType({
+            backgroundColor: color2,
         }));
     }
 
