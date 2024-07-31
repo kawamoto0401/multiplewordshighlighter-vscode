@@ -69,6 +69,8 @@ export class UserSetting {
             const element = this.json.searchData[index];
 
             if (0 === element.name.length) {
+                const decorationOptions: vscode.DecorationOptions[] = [];
+                decorationOptionsList[index] = decorationOptions;
                 continue;
             }
 
