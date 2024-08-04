@@ -3,6 +3,8 @@
 	"displayName": "MultipleWordsHighlighter_vscode",
 	"description": "",
 	"version": "0.2.4",
+	"publisher": "kawamoto",
+	"icon": "media/Package.ico",
 	"engines": {
 		"vscode": "^1.90.0"
 	},
@@ -18,7 +20,7 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-	    "icon": "./media/Package.ico",
+
 		"commands": [
 			{
 				"command": "multiplewordshighlighter-vscode.highlighterSetText1",
