@@ -7,17 +7,12 @@ Highlight multiple words and display them.
 
 ## Features
 
-Activity Barに専用のボタンを追加し、マーカー用の画面を表示
+サイドバーにマーカー用の画面を表示し、複数の単語が記載されるとエディタ画面に反映されます
 
-InputBoxに記載すると、マーカーが画面に反映されます
+デフォは、大文字小文字同一、単語検索なしとなっています
 
-基本は、大文字小文字同一、単語検索なし、正規表現となっています
-
-Add a dedicated button to the Activity Bar to display a marker screen.
-
-Input words in the InputBox, and the markers will be reflected on the screen.
-
-Basic search is case-sensitive, without whole word search or regular expressions.
+Displays a marker screen in the sidebar. When multiple words are entered, they are highlighted in the editor.
+By default, searches are case-sensitive and do not use whole word matching.
 
 ![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main/media/cap1.PNG?raw=true)
 

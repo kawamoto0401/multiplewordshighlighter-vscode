@@ -2,7 +2,7 @@
 	"name": "multiplewordshighlighter-vscode",
 	"displayName": "MultipleWordsHighlighter_vscode",
 	"description": "Highlight multiple words and display them.",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"publisher": "kawamoto",
 	"icon": "media/Package.ico",
 	"repository": {
