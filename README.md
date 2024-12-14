@@ -19,20 +19,19 @@ Input words in the InputBox, and the markers will be reflected on the screen.
 
 Basic search is case-sensitive, without whole word search or regular expressions.
 
-<!-- ![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main/media/cap1.PNG) -->
+![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main/media/cap1.PNG)
 
 色は設定画面より変更可能
 
 Color can be changed from the settings screen.
 
-<!-- ![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main//media/cap2.PNG) -->
+![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main/media/cap2.PNG)
 
 キーボード派のためにコマンドパレットから"Set HighlighterText*"で登録可能
 
 For keyboard users, it can be registered from the command palette using "Set HighlighterText*".
 
-<!-- ![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main//media/cap3.PNG) -->
-
+![キャプチャ](https://github.com/kawamoto0401/multiplewordshighlighter-vscode/blob/main/media/cap3.PNG)
 
 
 ## Known Issues
