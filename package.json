@@ -2,7 +2,7 @@
 	"name": "multiplewordshighlighter-vscode",
 	"displayName": "MultipleWordsHighlighter_vscode",
 	"description": "Highlight multiple words and display them.",
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"publisher": "kawamoto",
 	"icon": "media/Package.ico",
 	"repository": {
@@ -15,13 +15,7 @@
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [
-		"onCommand:multiplewordshighlighter-vscode.highlighterSetText1",
-		"onCommand:multiplewordshighlighter-vscode.highlighterSetText2",
-		"onCommand:multiplewordshighlighter-vscode.highlighterSetText3",
-		"onCommand:multiplewordshighlighter-vscode.highlighterSetText4",
-		"onCommand:multiplewordshighlighter-vscode.highlighterSetText5"
-	],
+	"activationEvents": [],
 	"main": "./out/extension.js",
 	"contributes": {
 
@@ -151,7 +145,8 @@
 				{
 					"type": "webview",
 					"id": "multiplewordshighlighter-explorer.webview",
-					"name": ""
+					"name": "",
+					"icon": "media/dep.svg"
 				}
 			]
 		},
